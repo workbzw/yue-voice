@@ -18,19 +18,25 @@ declare global {
       on: (event: string, callback: (accounts: string[]) => void) => void;
       removeListener: (event: string, callback: (accounts: string[]) => void) => void;
       isMetaMask?: boolean;
+      providers?: any[];
+      _metamask?: {
+        isUnlocked?: () => Promise<boolean>;
+      };
     };
   }
 }
 
 // 检查MetaMask状态的工具函数
-const checkMetaMaskState = async () => {
-  if (!window.ethereum) {
+const checkMetaMaskState = async (ethereumProvider?: any) => {
+  const provider = ethereumProvider || window.ethereum;
+  
+  if (!provider) {
     return { available: false, error: 'MetaMask未安装' };
   }
   
   try {
     // 检查是否有待处理的请求
-    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    const accounts = await provider.request({ method: 'eth_accounts' });
     return { available: true, accounts };
   } catch (error: any) {
     if (error.code === -32002) {
@@ -76,8 +82,36 @@ export function useWallet() {
       return;
     }
 
+    // 检查是否有多个钱包扩展，优先使用 MetaMask
+    let ethereum = window.ethereum;
+    if (ethereum?.providers && ethereum.providers.length > 0) {
+      // 如果有多个提供者，优先选择 MetaMask
+      const metaMaskProvider = ethereum.providers.find((p: any) => p.isMetaMask);
+      if (metaMaskProvider) {
+        ethereum = metaMaskProvider;
+        console.log('检测到多个钱包扩展，使用 MetaMask');
+      }
+    }
+
+    // 检查MetaMask是否解锁
+    try {
+      if (ethereum?._metamask?.isUnlocked) {
+        const isUnlocked = await ethereum._metamask.isUnlocked();
+        if (!isUnlocked) {
+          setWalletState(prev => ({
+            ...prev,
+            error: '请先解锁 MetaMask 钱包'
+          }));
+          return;
+        }
+      }
+    } catch (error) {
+      console.warn('检查 MetaMask 解锁状态失败:', error);
+      // 继续尝试连接，不阻止流程
+    }
+
     // 检查MetaMask状态
-    const metaMaskState = await checkMetaMaskState();
+    const metaMaskState = await checkMetaMaskState(ethereum);
     if (!metaMaskState.available) {
       setWalletState(prev => ({
         ...prev,
@@ -102,9 +136,28 @@ export function useWallet() {
         // 等待一小段时间，确保上一次请求完全结束
         await new Promise(resolve => setTimeout(resolve, 200));
         
-        accounts = await window.ethereum!.request({
-          method: 'eth_requestAccounts',
-        });
+        try {
+          accounts = await ethereum!.request({
+            method: 'eth_requestAccounts',
+          });
+        } catch (requestError: any) {
+          // 处理 selectExtension 错误
+          if (requestError.message?.includes('selectExtension') || 
+              requestError.message?.includes('Unexpected error')) {
+            console.error('钱包扩展选择错误:', requestError);
+            // 尝试直接使用 window.ethereum
+            if (window.ethereum && window.ethereum !== ethereum) {
+              console.log('尝试使用默认 ethereum 提供者');
+              accounts = await window.ethereum.request({
+                method: 'eth_requestAccounts',
+              });
+            } else {
+              throw requestError;
+            }
+          } else {
+            throw requestError;
+          }
+        }
       }
 
       if (accounts.length > 0) {
@@ -123,6 +176,11 @@ export function useWallet() {
       }
     } catch (error: any) {
       console.error('连接钱包失败:', error);
+      console.error('错误详情:', {
+        code: error.code,
+        message: error.message,
+        stack: error.stack,
+      });
       
       // 处理特定的MetaMask错误
       let errorMessage = error.message || '连接钱包失败';
@@ -133,6 +191,9 @@ export function useWallet() {
         errorMessage = '用户拒绝了钱包连接请求';
       } else if (error.code === -32603) {
         errorMessage = 'MetaMask内部错误，请重启浏览器后重试';
+      } else if (error.message?.includes('selectExtension') || 
+                 error.message?.includes('Unexpected error')) {
+        errorMessage = '钱包扩展选择失败，请确保只安装一个钱包扩展，或刷新页面重试';
       }
       
       setWalletState(prev => ({
