@@ -814,12 +814,12 @@ export default function RecordingPage({ onBack }: RecordingPageProps) {
           // 使用安全的英文文件名，避免中文导致的查询和兼容性问题
           // 格式：recording_序号_时间戳.wav
           const safeFilename = `recording_${i + 1}_${Date.now()}.wav`;
-          
-          // 添加到上传列表
-          audioUploadData.push({
-            audioUrl,
-            sentenceId: `sentence_${i + 1}`,
-            sentenceText: sentences[i] || '',
+            
+            // 添加到上传列表
+            audioUploadData.push({
+              audioUrl,
+              sentenceId: `sentence_${i + 1}`,
+              sentenceText: sentences[i] || '',
             filename: safeFilename
           });
         }

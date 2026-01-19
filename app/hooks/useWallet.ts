@@ -149,8 +149,8 @@ export function useWallet() {
             if (window.ethereum && window.ethereum !== ethereum) {
               console.log('尝试使用默认 ethereum 提供者');
               accounts = await window.ethereum.request({
-                method: 'eth_requestAccounts',
-              });
+          method: 'eth_requestAccounts',
+        });
             } else {
               throw requestError;
             }
@@ -245,9 +245,9 @@ export function useWallet() {
           localStorage.setItem('walletAccount', newAccount);
           localStorage.setItem('walletConnected', 'true');
           return {
-            ...prev,
-            account: newAccount,
-            isConnected: true,
+        ...prev,
+        account: newAccount,
+        isConnected: true,
           };
         }
         return prev;
@@ -268,7 +268,7 @@ export function useWallet() {
         
         if (accounts.length > 0) {
           const currentAccount = accounts[0];
-          const savedAccount = localStorage.getItem('walletAccount');
+      const savedAccount = localStorage.getItem('walletAccount');
           
           // 如果 MetaMask 的当前账户与保存的账户不同，使用 MetaMask 的当前账户
           if (currentAccount !== savedAccount) {
@@ -283,20 +283,20 @@ export function useWallet() {
             localStorage.setItem('walletConnected', 'true');
           } else if (savedAccount === currentAccount) {
             // 账户一致，恢复状态
-            setWalletState({
+              setWalletState({
               account: currentAccount,
-              isConnected: true,
-              isConnecting: false,
-              error: null,
-            });
+                isConnected: true,
+                isConnecting: false,
+                error: null,
+              });
           }
-        } else {
+            } else {
           // 没有连接的账户，清除状态
           const wasConnected = localStorage.getItem('walletConnected') === 'true';
           if (wasConnected) {
             console.log('MetaMask 中没有连接的账户，清除本地状态');
             disconnectWallet();
-          }
+            }
         }
       } catch (error) {
         console.error('检查账户失败:', error);
@@ -307,7 +307,7 @@ export function useWallet() {
     checkCurrentAccount();
 
     // 监听账户变化事件
-    window.ethereum!.on('accountsChanged', handleAccountsChanged);
+      window.ethereum!.on('accountsChanged', handleAccountsChanged);
 
     // 定期检查账户变化（作为备用机制，每 2 秒检查一次）
     const intervalId = setInterval(() => {
