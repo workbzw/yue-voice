@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Navbar from './components/Navbar';
 import PageContent from './components/PageContent';
+import Footer from './components/Footer';
 import { useSafariScrollFix } from './hooks/useSafariScrollFix';
 
 export default function Home() {
@@ -16,9 +17,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-800" style={{ overscrollBehavior: 'none' }}>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800 flex flex-col" style={{ overscrollBehavior: 'none' }}>
       <Navbar currentPage={currentPage} onPageChange={handlePageChange} />
-      <PageContent currentPage={currentPage} />
+      <div className="flex-1">
+        <PageContent currentPage={currentPage} />
+      </div>
+      <Footer />
     </div>
   );
 }
