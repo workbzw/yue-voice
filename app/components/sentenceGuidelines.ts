@@ -37,7 +37,7 @@ export const sentenceGuidelinesMarkdown = `## 公有领域
 作者或机构 (年份) 作品名称. 网址：https://example.com/ (访问日期：2024年9月15日)
 \`\`\`
 
-比如：Yue Voice (2024) 粤语语音数据集. 网址：https://yuevoice.org/ (访问日期：2024年9月15日)
+比如：Yue Voice (2024) 粤语语音数据集. 网址：https://yue-voice.helloworld.today/ (访问日期：2024年9月15日)
 
 ---
 
