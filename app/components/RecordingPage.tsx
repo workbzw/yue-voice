@@ -1218,7 +1218,7 @@ export default function RecordingPage({ onBack }: RecordingPageProps) {
       >
         <div style={{ maxWidth: '600px', width: '100%', textAlign: 'center' }}>
           {/* 句子显示区域 */}
-          <div className="bg-white rounded-2xl shadow-lg p-4 mb-4" style={{ 
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg dark:shadow-gray-900/50 p-4 mb-4 border border-green-500/50 dark:border-green-500/50" style={{ 
             width: window.innerHeight > window.innerWidth ? '90%' : '33.33%',
             maxWidth: window.innerHeight > window.innerWidth ? '600px' : '800px',
             margin: '0 auto 16px auto',
@@ -1228,8 +1228,8 @@ export default function RecordingPage({ onBack }: RecordingPageProps) {
             <div className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
               {sentences[currentSentenceIndex]}
             </div>
-            <div className="text-sm text-gray-400">
-              <a href="#" className="text-blue-500 hover:text-blue-600">详细了解</a>
+            <div className="text-sm text-gray-400 dark:text-gray-500">
+              <a href="#" className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300">详细了解</a>
             </div>
           </div>
 
