@@ -75,7 +75,7 @@ export default function Navbar({ currentPage, onPageChange }: NavbarProps) {
             
             {/* Logo */}
             <div className="flex items-center cursor-pointer space-x-2" onClick={() => handleNavClick('home')}>
-              <Logo size={32} className="flex-shrink-0" />
+              <Logo size={32} src="/logo.png" className="flex-shrink-0" />
               <div className="flex flex-col">
                 <span className="text-sm font-bold text-gray-900">Yue Voice</span>
                 <span className="text-xs text-gray-500">by YueLabs</span>

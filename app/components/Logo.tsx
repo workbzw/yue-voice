@@ -1,11 +1,28 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface LogoProps {
   className?: string;
   size?: number;
+  src?: string; // PNG 图片路径，如果提供则使用图片，否则使用 SVG
 }
 
-export default function Logo({ className = '', size = 40 }: LogoProps) {
+export default function Logo({ className = '', size = 40, src }: LogoProps) {
+  // 如果提供了图片路径，使用 PNG 图片
+  if (src) {
+    return (
+      <Image
+        src={src}
+        alt="Yue Voice Logo"
+        width={size}
+        height={size}
+        className={className}
+        priority
+      />
+    );
+  }
+
+  // 否则使用 SVG
   const centerX = size / 2;
   const centerY = size / 2;
   
