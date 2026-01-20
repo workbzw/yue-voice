@@ -16,6 +16,31 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
 
+  // 应用主题到 document
+  const applyTheme = (newTheme: Theme) => {
+    if (typeof window !== 'undefined') {
+      const root = document.documentElement;
+      if (newTheme === 'dark') {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+    }
+  };
+
+  const setTheme = (newTheme: Theme) => {
+    setThemeState(newTheme);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('theme', newTheme);
+      applyTheme(newTheme);
+    }
+  };
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+  };
+
   // 初始化：从 localStorage 读取或检测系统偏好
   useEffect(() => {
     setMounted(true);
@@ -26,27 +51,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setThemeState(initialTheme);
     applyTheme(initialTheme);
   }, []);
-
-  // 应用主题到 document
-  const applyTheme = (newTheme: Theme) => {
-    const root = document.documentElement;
-    if (newTheme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-  };
-
-  const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
-    localStorage.setItem('theme', newTheme);
-    applyTheme(newTheme);
-  };
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-  };
 
   // 监听系统主题变化
   useEffect(() => {
@@ -65,11 +69,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, [mounted]);
 
-  // 防止 hydration 不匹配
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
+  // 始终提供 context，即使在 SSR 时
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
       {children}
