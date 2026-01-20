@@ -28,7 +28,7 @@ export default function PageContent({ currentPage }: PageContentProps) {
   return (
     <div className="relative pt-16">
       {/* 背景装饰 */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-100 via-pink-50 to-orange-100 opacity-60"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-yellow-50 to-amber-50 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 opacity-60"></div>
       
       {/* 动态渲染内容 */}
       {renderContent()}

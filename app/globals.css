@@ -20,12 +20,21 @@ html {
   overscroll-behavior: none; /* 禁用过度滚动行为 */
 }
 
+html.dark {
+  background-color: #1f2937; /* 深色模式背景 - 深灰色 */
+}
+
 body {
   background: #f9fafb; /* 设置为与页面相同的灰色背景 */
   color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
   overscroll-behavior: none; /* 禁用过度滚动行为 */
   -webkit-overflow-scrolling: touch; /* 保持平滑滚动 */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background: #1f2937; /* 深色模式背景 - 深灰色 */
 }
 
 /* 确保中文字体渲染更好 */

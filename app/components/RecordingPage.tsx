@@ -1224,8 +1224,8 @@ export default function RecordingPage({ onBack }: RecordingPageProps) {
             margin: '0 auto 16px auto',
             minWidth: '300px'
           }}>
-            <div className="text-sm text-gray-500 mb-2">请朗读以下句子</div>
-            <div className="text-lg font-medium text-gray-900 mb-2">
+            <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">请朗读以下句子</div>
+            <div className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
               {sentences[currentSentenceIndex]}
             </div>
             <div className="text-sm text-gray-400">
@@ -1435,7 +1435,7 @@ export default function RecordingPage({ onBack }: RecordingPageProps) {
                   <div>正在录音... 点击红色按钮或按S键停止</div>
                 </div>
               ) : recordedAudio ? (
-                <div className="text-gray-600 font-medium">
+                <div className="text-gray-600 dark:text-gray-300 font-medium">
                   <div>点击重新录音</div>
                   {recordingDuration > 0 && (
                     <div className="text-sm text-gray-500 mt-1">
@@ -1604,7 +1604,7 @@ export default function RecordingPage({ onBack }: RecordingPageProps) {
         gap: '12px'
       }}>
         {/* 说明文字 */}
-        <div className="text-sm text-gray-600 text-center">
+        <div className="text-sm text-gray-600 dark:text-gray-300 text-center">
           点击下方数字可切换到对应句子进行录制
         </div>
         

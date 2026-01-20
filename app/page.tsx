@@ -16,7 +16,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50" style={{ overscrollBehavior: 'none' }}>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800" style={{ overscrollBehavior: 'none' }}>
       <Navbar currentPage={currentPage} onPageChange={handlePageChange} />
       <PageContent currentPage={currentPage} />
     </div>

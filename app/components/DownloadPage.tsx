@@ -45,8 +45,8 @@ export default function DownloadPage() {
     <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 min-h-screen">
       {/* 页面标题 */}
       <div className="mb-12 text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">数据下载</h1>
-        <p className="text-lg text-gray-600">选择您需要的下载功能</p>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">数据下载</h1>
+        <p className="text-lg text-gray-600 dark:text-gray-300">选择您需要的下载功能</p>
       </div>
 
       {/* 功能网格 - 统一为3列 */}

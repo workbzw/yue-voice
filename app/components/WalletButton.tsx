@@ -78,7 +78,7 @@ export default function WalletButton() {
             ${isConnecting
               ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
               : isMetaMaskInstalled
-              ? 'text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
+              ? 'text-white bg-gradient-to-r from-green-500 to-yellow-500 hover:from-green-600 hover:to-yellow-600 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
               : 'bg-gray-200 text-gray-500 cursor-not-allowed'
             }
           `}
@@ -164,7 +164,7 @@ export default function WalletButton() {
 
       {/* 下拉菜单 - 移动端优化 */}
       {showDropdown && (
-        <div className="absolute top-full right-0 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 py-1 z-50
+        <div className="absolute top-full right-0 mt-2 bg-white border border-green-500/50 dark:bg-gray-800 dark:border dark:border-green-500/50 rounded-lg shadow-xl border-gray-200 dark:border-gray-700 py-1 z-50
         /* 移动端优化：更窄的菜单 */
         w-56 sm:w-64">
           {/* 账户信息 */}

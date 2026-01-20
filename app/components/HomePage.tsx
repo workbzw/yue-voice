@@ -195,21 +195,21 @@ export default function HomePage() {
   return (
     <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-12">
-        <div className="w-16 h-1 bg-purple-500 mb-6"></div>
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">贡献准则</h1>
-        <p className="text-lg text-gray-600 max-w-2xl">
+        <div className="w-16 h-1 bg-green-500 mb-6"></div>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">贡献准则</h1>
+        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
           了解如何为 Yue Voice 数据集贡献语句和录音，以及如何验证他人提交的内容
         </p>
       </div>
 
       <div className="mb-8">
-        <div className="flex space-x-8 border-b border-gray-200">
+        <div className="flex space-x-8 border-b border-gray-200 dark:border-gray-700">
           <button
             onClick={() => handleTabChange('voice')}
             className={`pb-4 font-medium ${
               activeTab === 'voice'
-                ? 'text-gray-900 border-b-2 border-purple-500'
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'text-gray-900 dark:text-gray-100 border-b-2 border-green-500 dark:border-green-400'
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
             }`}
             aria-label="切换到提交语音标签页"
             aria-selected={activeTab === 'voice'}
@@ -220,8 +220,8 @@ export default function HomePage() {
             onClick={() => handleTabChange('sentence')}
             className={`pb-4 font-medium ${
               activeTab === 'sentence' 
-                ? 'text-gray-900 border-b-2 border-purple-500' 
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'text-gray-900 dark:text-gray-100 border-b-2 border-green-500 dark:border-green-400' 
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
             }`}
             aria-label="切换到提交语句标签页"
             aria-selected={activeTab === 'sentence'}
@@ -240,8 +240,8 @@ export default function HomePage() {
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className={`block w-full text-left px-3 py-2 rounded-md font-medium transition-colors ${activeSection === item.id
-                      ? 'text-gray-900 bg-gray-100'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                      ? 'text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-800 border border-green-500/50 dark:border dark:border-green-500/50'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border hover:border-green-500/60 dark:hover:border dark:hover:border-green-500/60'
                     } ${isSpecialItem(item.id) ? 'italic' : ''}`}
                   aria-label={`跳转到${item.label}部分`}
                   aria-current={activeSection === item.id ? 'true' : undefined}
@@ -254,16 +254,16 @@ export default function HomePage() {
         </div>
 
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-lg shadow-sm p-8">
+          <div className="bg-white border border-green-500/50 dark:bg-gray-800 dark:border dark:border-green-500/50 rounded-lg shadow-sm dark:shadow-gray-900/50 p-8">
             {activeTab === 'voice' ? (
               <>
                 {parseVoiceSections.map((section, index) => (
                   <div key={section.id} id={section.id} className="prose prose-gray max-w-none">
                     <ReactMarkdown
-                      className="space-y-4 text-gray-700 leading-relaxed"
+                      className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed"
                       components={{
                         h2: ({ children }) => (
-                          <h2 className={`text-2xl font-bold text-gray-900 mb-6 ${index === 0 ? '' : 'mt-12 pt-8 border-t border-gray-200'}`}>
+                          <h2 className={`text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 ${index === 0 ? '' : 'mt-12 pt-8 border-t border-gray-200 dark:border-gray-700'}`}>
                             {children}
                           </h2>
                         ),
@@ -284,10 +284,10 @@ export default function HomePage() {
                 {parseMarkdownSections.map((section, index) => (
                   <div key={section.id} id={section.id} className="prose prose-gray max-w-none">
                     <ReactMarkdown
-                      className="space-y-4 text-gray-700 leading-relaxed"
+                      className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed"
                       components={{
                         h2: ({ children }) => (
-                          <h2 className={`text-2xl font-bold text-gray-900 mb-6 ${index === 0 ? '' : 'mt-12 pt-8 border-t border-gray-200'}`}>
+                          <h2 className={`text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 ${index === 0 ? '' : 'mt-12 pt-8 border-t border-gray-200 dark:border-gray-700'}`}>
                             {children}
                           </h2>
                         ),
@@ -298,9 +298,9 @@ export default function HomePage() {
                         code: ({ children, className }) => {
                           const isBlock = className?.includes('language');
                           return isBlock ? (
-                            <code className="bg-gray-50 px-4 py-2 rounded text-sm font-mono block p-4 mb-4">{children}</code>
+                            <code className="bg-gray-50 dark:bg-gray-700 px-4 py-2 rounded text-sm font-mono block p-4 mb-4 text-gray-900 dark:text-gray-100">{children}</code>
                           ) : (
-                            <code className="bg-gray-50 px-2 py-1 rounded text-sm font-mono">{children}</code>
+                            <code className="bg-gray-50 dark:bg-gray-700 px-2 py-1 rounded text-sm font-mono text-gray-900 dark:text-gray-100">{children}</code>
                           );
                         },
                         a: ({ href, children }) => <a href={href} className="text-blue-600 hover:text-blue-800 underline">{children}</a>,
@@ -309,10 +309,10 @@ export default function HomePage() {
                       {section.content}
                     </ReactMarkdown>
                     {section.id === 'copyright-notice' && (
-                      <div className="mt-6 p-4 bg-gray-50 rounded-lg border-l-4 border-yellow-400">
+                      <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border-l-4 border-yellow-400 dark:border-yellow-500">
                         <div className="text-left">
-                          <div className="text-sm font-semibold text-gray-900 mb-2">⚠️ 重要提醒</div>
-                          <div className="text-sm text-gray-700">
+                          <div className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2">⚠️ 重要提醒</div>
+                          <div className="text-sm text-gray-700 dark:text-gray-300">
                             如果使用自己写的句子，请确认这个句子确实是你原创的，没有抄袭或改编自其他有版权的作品。如果发现版权问题，我们有权删除相关内容。
                           </div>
                         </div>
